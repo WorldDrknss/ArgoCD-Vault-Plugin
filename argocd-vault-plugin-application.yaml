@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-vault-plugin-sidecar
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    path: "."
+    repoURL: https://github.com/WorldDrknss/argocd-vault-plugin.git
+    targetRevision: main
+    directory:
+      exclude: '{values.yaml,LISCENSE,README.md}'
+    kustomize:
+      resources:
+        - manifests/cmp-plugin.yaml
+        - manifests/role.yaml
+        - manifests/role-binding.yaml
+      patchesStrategicMerge:
+        - merge/argocd-repo-server.yaml
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
