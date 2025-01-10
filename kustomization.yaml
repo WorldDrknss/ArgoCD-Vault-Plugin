@@ -6,5 +6,9 @@ resources:
   - manifests/role.yaml
   - manifests/role-binding.yaml
 
-patchesStrategicMerge:
-  - merge/argocd-repo-server.yaml
+patches:
+  - path: merge/argocd-repo-server.yaml
+    target:
+      kind: Deployment
+      name: argocd-repo-server
+      namespace: argocd
