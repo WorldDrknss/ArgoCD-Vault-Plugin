@@ -1,0 +1,7 @@
+resources:
+  - manifests/cmp-plugin.yaml
+  - manifests/role.yaml
+  - manifests/role-binding.yaml
+
+patchesStrategicMerge:
+  - merge/argocd-repo-server.yaml
