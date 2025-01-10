@@ -14,6 +14,7 @@ spec:
     directory:
       exclude: '{values.yaml,LISCENSE,README.md,manifests/*,merge/*}'
     kustomize:
+      # Kustomize related configuration should go here directly, not nested further under directory
       resources:
         - manifests/cmp-plugin.yaml
         - manifests/role.yaml
