@@ -8,13 +8,13 @@ metadata:
 spec:
   project: default
   source:
-    path: "."
     repoURL: https://github.com/WorldDrknss/argocd-vault-plugin.git
     targetRevision: main
+    path: "."
     directory:
-      exclude: '{values.yaml,LISCENSE,README.md,manifests/*,merge/*}'
+      exclude: '{values.yaml,LISCENSE,README.md,manifests/*,merge/*}'  # Exclude unnecessary files
     kustomize:
-      # Kustomize related configuration should go here directly, not nested further under directory
+      # Kustomize should be applied directly for resources and patches
       resources:
         - manifests/cmp-plugin.yaml
         - manifests/role.yaml
