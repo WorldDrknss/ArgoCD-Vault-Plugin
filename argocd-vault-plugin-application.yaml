@@ -12,12 +12,12 @@ spec:
     repoURL: https://github.com/WorldDrknss/argocd-vault-plugin.git
     targetRevision: main
     directory:
-      exclude: '{values.yaml,LISCENSE,README.md}'
+      exclude: '{values.yaml,LISCENSE,README.md,manifests/*,merge/*}'
     kustomize:
       resources:
-        - manifests/cmp-plugin.yaml
-        - manifests/role.yaml
-        - manifests/role-binding.yaml
+        - manifest/cmp-plugin.yaml
+        - manifest/role.yaml
+        - manifest/role-binding.yaml
       patchesStrategicMerge:
         - merge/argocd-repo-server.yaml
   destination:
