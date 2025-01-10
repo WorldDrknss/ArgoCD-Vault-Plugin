@@ -2,13 +2,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - manifests/cmp-plugin.yaml
-  - manifests/role.yaml
-  - manifests/role-binding.yaml
+- https://raw.githubusercontent.com/argoproj/argo-cd/refs/heads/master/manifests/ha/install.yaml
+- manifests/cmp-plugin.yaml
+- manifests/role.yaml
+- manifests/role-binding.yaml
 
 patches:
   - path: merge/argocd-repo-server.yaml
     target:
       kind: Deployment
       name: argocd-repo-server
-      namespace: argocd
