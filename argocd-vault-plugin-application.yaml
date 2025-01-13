@@ -13,14 +13,6 @@ spec:
     path: "."
     directory:
       exclude: '{values.yaml,LISCENSE,README.md,manifests/*,merge/*}'  # Exclude unnecessary files
-    kustomize:
-      # Kustomize should be applied directly for resources and patches
-      resources:
-        - manifests/cmp-plugin.yaml
-        - manifests/role.yaml
-        - manifests/role-binding.yaml
-      patchesStrategicMerge:
-        - merge/argocd-repo-server.yaml
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
