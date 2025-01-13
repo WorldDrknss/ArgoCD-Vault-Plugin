@@ -25,6 +25,19 @@ The ArgoCD application is set up to deploy the following:
 
 The ArgoCD application configuration (`vault-plugin-sidecar-argocd.yaml`) is as follows:
 
+```bash
+# enable key-value engine
+vault secrets enable kv-v2
+# add the password to path kv-v2/argocd
+vault kv put kv-v2/argocd password="argocd"
+# add a policy to read the previously created secret
+vault policy write argocd - <<EOF
+path "kv-v2/data/argocd" {
+  capabilities = ["read"]
+}
+EOF
+```
+
 ```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
