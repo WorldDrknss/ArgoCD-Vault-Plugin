@@ -33,7 +33,7 @@ vault kv put kv-v2/argocd password="argocd"
 # add a policy to read the previously created secret
 vault policy write argocd - <<EOF
 path "kv-v2/data/argocd" {
-  capabilities = ["read"]
+  capabilities = ["read", "list"]
 }
 EOF
 ```
