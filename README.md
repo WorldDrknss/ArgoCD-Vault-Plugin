@@ -42,28 +42,24 @@ EOF
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-vault-plugin-sidecar
+  name: cert-manager
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  source:
-    repoURL: https://github.com/WorldDrknss/argocd-vault-plugin.git
-    targetRevision: main
-    path: "."
-    directory:
-      exclude: '{values.yaml,LISCENSE,README.md,manifests/*,merge/*}'  # Exclude unnecessary files
-    kustomize:
-      resources:
-        - manifests/cmp-plugin.yaml
-        - manifests/role.yaml
-        - manifests/role-binding.yaml
-      patchesStrategicMerge:
-        - merge/argocd-repo-server.yaml
+  sources:
+    - repoURL: https://charts.jetstack.io
+      chart: cert-manager
+      targetRevision: v1.16.2
+      helm:
+        valueFiles:
+          - $values/values.yaml
+    - repoURL: https://github.com/WorldDrknss/argocd-cert-manager.git
+      path: "manifests"
+      ref: values
+      targetRevision: main
   destination:
-    namespace: argocd
     server: https://kubernetes.default.svc
+    namespace: cert-manager
   syncPolicy:
     automated:
       prune: true
