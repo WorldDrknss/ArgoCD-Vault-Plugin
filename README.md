@@ -1,8 +1,6 @@
 ---
 # ArgoCD Application - Vault Plugin Sidecar
 
-**Experimental, Use at your own risk**
-
 This repository contains an ArgoCD application configuration for deploying the **ArgoCD Vault Plugin Sidecar**, which enables seamless integration of HashiCorp Vault with ArgoCD. This setup allows for secure management of secrets used in your Kubernetes applications.
 
 ## Prerequisites
