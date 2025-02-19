@@ -79,24 +79,21 @@ The ArgoCD application configuration (`argocd-vault-plugin-application.yaml`) is
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager
+  name: argocd-vault-plugin-sidecar
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  sources:
-    - repoURL: https://charts.jetstack.io
-      chart: cert-manager
-      targetRevision: v1.16.2
-      helm:
-        valueFiles:
-          - $values/values.yaml
-    - repoURL: https://github.com/WorldDrknss/argocd-cert-manager.git
-      path: "manifests"
-      ref: values
-      targetRevision: main
+  source:
+    repoURL: https://github.com/WorldDrknss/argocd-vault-plugin.git
+    targetRevision: main
+    path: "."
+    directory:
+      exclude: '{values.yaml,LISCENSE,README.md,manifests/*,merge/*}'  # Exclude unnecessary files
   destination:
+    namespace: argocd
     server: https://kubernetes.default.svc
-    namespace: cert-manager
   syncPolicy:
     automated:
       prune: true
